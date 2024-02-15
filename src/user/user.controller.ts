@@ -2,6 +2,7 @@ import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
+import { JwtGuard } from 'src/auth/guard';
 
 @Controller('users')
 export class UserController {
@@ -12,7 +13,7 @@ export class UserController {
     return await this.userService.getAllUsers();
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtGuard)
   @Get('me')
   async getMe(@Req() req: Request) {
     return req.user;
