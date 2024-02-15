@@ -9,4 +9,8 @@ export class UserService {
     let users = await this.prisma.user.findMany();
     return users;
   }
+
+  async getMe() {
+    return 'me';
+  }
 }
