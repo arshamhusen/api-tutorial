@@ -1,6 +1,10 @@
+import { Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
+import { JwtGuard } from 'src/auth/guard';
 import { PrismaService } from 'src/prisma/prisma.service';
 const { Injectable } = require('@nestjs/common');
 
+@UseGuards(JwtGuard)
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
@@ -10,7 +14,7 @@ export class UserService {
     return users;
   }
 
-  async getMe() {
-    return 'me';
+  async getMe(@Req() req: Request) {
+    return req.user;
   }
 }
